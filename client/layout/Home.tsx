@@ -3,6 +3,7 @@ import React from "react";
 import Image from 'next/image';
 import Link from "next/link";
 import { useMe } from "../context/me";
+import UploadVideo from "../components/UploadVideo";
 
 function HomePageLayout({ children }: { children: React.ReactNode }){
 
@@ -37,9 +38,7 @@ function HomePageLayout({ children }: { children: React.ReactNode }){
                         {user && (
                             <>
                                 {console.log(user)}
-                                <Button color="red" ml="lg" mr="lr">
-                                    Upload a video
-                                </Button>
+                                <UploadVideo />
                                 <Menu ml="lg" mr="lr" control={
                                     <Indicator inline size={16} offset={7} position="top-end" color="red" withBorder>
                                         <Avatar
