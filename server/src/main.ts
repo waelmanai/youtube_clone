@@ -3,7 +3,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import { connectToDatabase, disconnectFromDatabase } from "./utils/db";
 import logger from "./utils/logger";
-import { CORS_ORIGIN } from "./utils/constants";
+import { CORS_ORIGIN } from "./constants";
 import helmet from "helmet";
 import userRoute from './modules/user/user.route';
 import authRoute from './modules/auth/auth.route';
@@ -23,13 +23,15 @@ app.use(express.json());
 // }));
 
 const corsOptions ={
-    origin:'http://localhost:3000', 
+    origin:CORS_ORIGIN, 
     credentials:true,            //access-control-allow-credentials:true
-    optionSuccessStatus:200
+    //optionSuccessStatus:200
 }
 app.use(cors(corsOptions));
 
-app.use(helmet());
+app.use(helmet({
+    crossOriginResourcePolicy: false,
+}));
 
 app.use(deserializeUser);
 

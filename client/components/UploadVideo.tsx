@@ -1,9 +1,67 @@
-import { Modal, Button, useMantineTheme, Group, Text, Progress } from "@mantine/core";
-import { useState } from "react";
+import { Modal, Button, useMantineTheme, Group, Text, Progress, Stack, TextInput, Switch } from "@mantine/core";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Dropzone, MIME_TYPES } from "@mantine/dropzone";
 import { ArrowBigUpLine } from "tabler-icons-react";
 import { useMutation } from "react-query";
-import { uploadVideo } from "../api";
+import { updateVideo, uploadVideo } from "../api";
+import { useForm } from "@mantine/hooks";
+import { Video } from "../types";
+import { AxiosError, AxiosResponse } from "axios";
+import { useVideo } from "../context/videos";
+
+function EditVideoForm({ 
+    videoId,
+    setOpened 
+} : {
+    videoId: string,
+    setOpened: Dispatch<SetStateAction<boolean>>
+}){
+
+    const { refetch } = useVideo();
+
+    const form = useForm({
+        initialValues: {
+            title: '',
+            description: '',
+            published: true
+        }
+    });
+
+    type input = Parameters<typeof updateVideo>;
+
+    const mutation = useMutation<
+        AxiosResponse<Video>,
+        AxiosError,
+        input["0"]
+    >
+    (updateVideo, {
+        onSuccess: () => { setOpened(false); refetch(); }
+    });
+
+    return (
+        <form onSubmit={form.onSubmit((values) => mutation.mutate({ videoId, ...values }) )}>
+            <Stack>
+                <TextInput 
+                    label="Title"
+                    required
+                    placeholder="My awesome video"
+                    {...form.getInputProps('title')}
+                />
+                <TextInput 
+                    label="Description"
+                    required
+                    placeholder="My awesome video description"
+                    {...form.getInputProps('description')}
+                />
+                <Switch 
+                    label="Published"
+                    {...form.getInputProps('published')}
+                />
+                <Button type="submit"> Save </Button>
+            </Stack>
+        </form>
+    )
+}
 
 function UploadVideo(){
 
@@ -38,9 +96,7 @@ function UploadVideo(){
                 opened={opened}
                 title="Upload video"
                 size="xl"
-                transition="fade"
-                transitionDuration={600}
-                transitionTimingFunction="ease"
+                
                 overlayColor={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
                 overlayOpacity={0.55}
                 overlayBlur={3}
@@ -71,6 +127,13 @@ function UploadVideo(){
                 </Dropzone>}
 
                 {progress > 0 && <Progress size="xl" label={`${progress}%`} value={progress} mb="xl" />}
+
+                {mutation.data && (
+                    <EditVideoForm 
+                        setOpened={setOpened}
+                        videoId={mutation.data.videoId}
+                    />
+                )}
                 
             </Modal>
 
