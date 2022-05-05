@@ -36,5 +36,5 @@
 ![AddvideoModal](screenshot_addVideo.png)
 ### Add Video Modal Form
 ![addVideoModalForm](screenshot_addVideoForm.png)
-### Home Page
+### Stream Video Page
 ![Streampage](screenshot_stream.png)
