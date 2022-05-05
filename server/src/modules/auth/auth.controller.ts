@@ -4,6 +4,7 @@ import { findUserByEmail } from "../user/user.service";
 import { signJwt } from "./auth.utils";
 import omit from '../../helpers/omit';
 import { LoginBody } from "./auth.schema";
+const serialize = require("cookie");
 
 export async function loginHandler(req: Request<{}, {}, LoginBody>, res: Response) {
     
@@ -32,6 +33,5 @@ export async function loginHandler(req: Request<{}, {}, LoginBody>, res: Respons
     });
 
     return res.status(StatusCodes.OK).send(jwt);
-
 
 }

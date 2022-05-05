@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useMe } from "../context/me";
 import UploadVideo from "../components/UploadVideo";
 import { VideosContextProvider } from "../context/videos";
+import { Sidebar } from "../components/Sidebar";
 
 function HomePageLayout({ children }: { children: React.ReactNode }){
 
@@ -15,8 +16,8 @@ function HomePageLayout({ children }: { children: React.ReactNode }){
             <AppShell
                 padding="md"
                 navbar={
-                    <Navbar width={{ sm: 30, lg: 300 }} height={500} p="xs">
-                        Side Items 
+                    <Navbar width={{ base: 80 }} height="89vh" p="xs">
+                        <Sidebar />
                     </Navbar>
                 }
                 header={

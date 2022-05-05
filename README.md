@@ -26,4 +26,15 @@
 
 ## Screenshots
 
-Soon screen
+### Login Page
+![Loginpage](screenshot_login.png)
+### Register Page
+![Registerpage](screenshot_register.png)
+### Home Page
+![Homepage](screenshot_home.png)
+### Add Video Modal
+![AddvideoModal](screenshot_addVideo.png)
+### Add Video Modal Form
+![addVideoModalForm](screenshot_addVideoForm.png)
+### Home Page
+![Streampage](screenshot_stream.png)

@@ -1,4 +1,4 @@
-import { Button, Container, Paper, PasswordInput, Stack, TextInput, Title } from "@mantine/core";
+import { Button, Text, Paper, PasswordInput, TextInput, Title, createStyles, ThemeIcon } from "@mantine/core";
 import { useForm } from "@mantine/hooks";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import { AxiosError } from "axios";
@@ -6,6 +6,34 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useMutation } from "react-query";
 import { loginUser } from '../../api'
+
+const useStyles = createStyles((theme) => ({
+    wrapper: {
+      minHeight: '100vh',
+      backgroundSize: 'cover',
+      backgroundImage:
+        'url(https://cdn.wallpapersafari.com/30/41/SX4JNp.png)',
+    },
+
+    form: {
+        borderRight: `1px solid ${
+          theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[3]
+        }`,
+        minHeight: '100vh',
+        maxWidth: 450,
+        paddingTop: 80,
+    
+        [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
+          maxWidth: '100%',
+        },
+    },
+    
+    title: {
+        color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+        fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+    },
+    
+}));
 
 function LoginPage(){
 
@@ -51,12 +79,45 @@ function LoginPage(){
         },
     })
 
+    const { classes } = useStyles();
+
     return(
         <>
             <Head>
                 <title>Login user</title>
             </Head>
-            <Container>
+
+            <div className={classes.wrapper}>
+                <Paper className={classes.form} radius={0} p={30}>
+                    <Title order={2} className={classes.title} align="center" mt="md">
+                        Welcome back to <br />
+                    </Title>
+                    <Title order={2} className={classes.title} align="center" mt={0}>Youtube clone!</Title>
+                    <Text align="center" mt={20} mb={50}>Created by Wael Manai</Text>
+                    <form onSubmit={form.onSubmit((values) => mutation.mutate(values))}>
+                        <TextInput 
+                            label="Email"
+                            placeholder="wael@example.com"
+                            required
+                            size="md"
+                            {...form.getInputProps("email")}
+                        />
+
+                        <PasswordInput 
+                            label="Password"
+                            placeholder="Your strong password"
+                            required
+                            mt="md" size="md"
+                            {...form.getInputProps("password")}
+                        />
+
+                        <Button color="red" fullWidth mt="xl" size="md" type="submit">Login</Button>
+                    </form>
+                    
+                </Paper>
+            </div>
+
+            {/* <Container>
                 <Title>Sign In</Title>
 
                 <Paper withBorder shadow="md" p={30} mt={30} radius="md">
@@ -80,7 +141,7 @@ function LoginPage(){
                         </Stack>
                     </form>
                 </Paper>
-            </Container>
+            </Container> */}
         </>
     )
 }

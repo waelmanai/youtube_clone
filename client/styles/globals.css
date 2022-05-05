@@ -23,3 +23,22 @@ a {
 .mantine-Indicator-root{
   cursor: pointer;
 }
+
+.mantine-p7xtuc{
+  margin-top: 0 !important;
+}
+
+.mantine-gc2cx1 {
+  margin-bottom: 10px;
+}
+
+.thumb{
+  object-fit: contain;
+  height: 160px;
+  margin-bottom: 20px;
+}
+
+.mantine-1l059t1 {
+  position: sticky;
+  z-index: 999999;
+}
